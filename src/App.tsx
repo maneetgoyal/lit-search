@@ -1,15 +1,6 @@
-import { AppBar, Toolbar, Typography, List, ListItem, ListSubheader } from "@mui/material";
-import { getDummyData } from "./utils";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 
 export function App(): JSX.Element {
-  const data = getDummyData();
-  const topics = Array.from(
-    new Set(
-      data.map((ele) => {
-        return ele.topic;
-      })
-    )
-  );
   return (
     <>
       <AppBar position="static">
@@ -19,11 +10,6 @@ export function App(): JSX.Element {
           </Typography>
         </Toolbar>
       </AppBar>
-      <List subheader={<ListSubheader>Topics</ListSubheader>} dense>
-        {topics.map((ele) => {
-          return <ListItem>{ele}</ListItem>;
-        })}
-      </List>
     </>
   );
 }

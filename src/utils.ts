@@ -15,8 +15,21 @@ export function getDummyData(): Publication[] {
   for (let i = 0; i < count; i += 1) {
     publications.push({
       publicationDate: faker.date.between("2020-01-01T00:00:00.000Z", "2030-01-01T00:00:00.000Z").toISOString(),
-      authors: faker.helpers.uniqueArray(faker.name.firstName, faker.datatype.number({ min: 1, max: 4 })),
-      topic: faker.color.human(),
+      authors: faker.helpers.arrayElements(
+        ["Max", "Tom", "Lisa", "Daniel", "Kumar", "Sharma", "John", "Alice", "Ray"],
+        faker.datatype.number({ min: 1, max: 4 })
+      ),
+      topic: faker.helpers.arrayElement([
+        "Oncology",
+        "Cardiovascular Diseases",
+        "Infectious Diseases",
+        "Biomedical Neuroscience",
+        "Stem Cells",
+        "Therapeutics",
+        "Immunity",
+        "Cell Signalling",
+        "Cellular Imaging",
+      ]),
     });
   }
   return publications;
