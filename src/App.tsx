@@ -4,7 +4,7 @@ import { getDummyData } from "./utils";
 
 export function App(): JSX.Element {
   const data = getDummyData();
-  const aggregated = rollups(
+  const aggregatedByYear = rollups(
     data,
     (vals) => {
       return vals.length;
@@ -12,6 +12,16 @@ export function App(): JSX.Element {
     (val) => {
       return new Date(val.publicationDate).getFullYear();
     }
+  );
+  const authors = data.flatMap((ele) => {
+    return ele.authors;
+  });
+  const aggregatedByAuthor = rollups(
+    authors,
+    (vals) => {
+      return vals.length;
+    },
+    (val) => val
   );
   return (
     <>
@@ -22,7 +32,8 @@ export function App(): JSX.Element {
           </Typography>
         </Toolbar>
       </AppBar>
-      {JSON.stringify(aggregated, undefined, 2)}
+      {JSON.stringify(aggregatedByYear, undefined, 2)}
+      {JSON.stringify(aggregatedByAuthor, undefined, 2)}
     </>
   );
 }
