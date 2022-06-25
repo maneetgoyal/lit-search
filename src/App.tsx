@@ -1,7 +1,15 @@
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Toolbar, Typography, List, ListItem, ListSubheader } from "@mui/material";
 import { getDummyData } from "./utils";
 
 export function App(): JSX.Element {
+  const data = getDummyData();
+  const topics = Array.from(
+    new Set(
+      data.map((ele) => {
+        return ele.topic;
+      })
+    )
+  );
   return (
     <>
       <AppBar position="static">
@@ -11,9 +19,11 @@ export function App(): JSX.Element {
           </Typography>
         </Toolbar>
       </AppBar>
-      {getDummyData().map((ele) => {
-        return JSON.stringify(ele, undefined, 2);
-      })}
+      <List subheader={<ListSubheader>Topics</ListSubheader>} dense>
+        {topics.map((ele) => {
+          return <ListItem>{ele}</ListItem>;
+        })}
+      </List>
     </>
   );
 }
