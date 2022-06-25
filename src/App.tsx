@@ -1,7 +1,11 @@
+import { Grid, Typography } from "@mui/material";
+
 export function App(): JSX.Element {
   return (
-    <div>
+    <Grid>
+      <Typography>
       App Page
-    </div>
+      </Typography>
+    </Grid>
   );
 }
