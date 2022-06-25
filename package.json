@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@faker-js/faker": "^7.3.0",
     "@fontsource/roboto": "^4.5.7",
     "@mui/material": "^5.8.5",
     "@types/node": "^16.7.13",
