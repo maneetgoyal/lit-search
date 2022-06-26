@@ -11,6 +11,11 @@ export interface Publication {
   topic: string;
 }
 
+export interface Datum {
+  category: string;
+  value: number;
+}
+
 export function getDummyData(): Publication[] {
   const count = 1000;
   const publications: Publication[] = [];
@@ -37,20 +42,30 @@ export function getDummyData(): Publication[] {
   return publications;
 }
 
-export function getBarChartData(
-  data: Publication[],
-  granularity?: "year" | "month" | "week",
-  year?: string,
-  month?: string
-): [string, number][] {
+export function getBarChartData(data: Publication[], year?: string, month?: string): [string, number][] {
+  let filteredData = data;
+  let grouper = (val: Publication) => {
+    return new Date(val.publicationDate).getFullYear().toString();
+  };
+  if (year !== undefined) {
+    filteredData = data.filter((ele) => {
+      return new Date(ele.publicationDate).getFullYear().toString() === year;
+    });
+    grouper = (val: Publication) => {
+      return new Date(val.publicationDate).getMonth().toString();
+    };
+    if (month !== undefined) {
+      filteredData = filteredData.filter((ele) => {
+        return new Date(ele.publicationDate).getMonth().toString() === month;
+      });
+    }
+  }
   const aggregatedByTime = rollups(
-    data,
+    filteredData,
     (vals) => {
       return vals.length;
     },
-    (val) => {
-      return new Date(val.publicationDate).getFullYear().toString();
-    }
+    grouper
   );
   return aggregatedByTime;
 }

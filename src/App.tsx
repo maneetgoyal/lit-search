@@ -2,21 +2,29 @@ import { AppBar, Toolbar, Typography, Grid, TextField } from "@mui/material";
 import ReactECharts from "echarts-for-react";
 import { useState, useEffect } from "react";
 import { getDummyData, getBarChartData, getPieChartData } from "./utils";
-import type { Publication } from "./utils";
+import type { Publication, Datum } from "./utils";
 import type { TextFieldProps } from "@mui/material";
+import type { DefaultLabelFormatterCallbackParams } from "echarts";
 
 export function App(): JSX.Element {
   const [filter, setFilter] = useState("");
   const [data, setData] = useState<Publication[]>([]);
+  const [year, setYear] = useState<string>();
   useEffect(() => {
     const dummyData = getDummyData();
     setData(dummyData);
   }, []);
-  const aggregatedByTime = getBarChartData(data);
+  const aggregatedByTime = getBarChartData(data, year);
   const aggregatedByAuthor = getPieChartData(data, filter);
   const onFilterChange: TextFieldProps["onChange"] = (evt) => {
     const { value } = evt.target;
     setFilter(value);
+  };
+  const onChartClick = (params: DefaultLabelFormatterCallbackParams) => {
+    if (params.componentType === "series" && params.componentSubType === "bar") {
+      const datum = params.data as Datum;
+      setYear(datum.category);
+    }
   };
   return (
     <>
@@ -95,6 +103,9 @@ export function App(): JSX.Element {
                     datasetIndex: 1,
                   },
                 ],
+              }}
+              onEvents={{
+                click: onChartClick,
               }}
             />
           </Grid>
