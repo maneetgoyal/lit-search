@@ -134,7 +134,7 @@ export function App(): JSX.Element {
                   },
                   series: [
                     {
-                      name: "Publications Distribution",
+                      name: "Publications Count",
                       type: "pie",
                       radius: "50%",
                       data: aggregatedByAuthor.map(([name, value]) => {
