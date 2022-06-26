@@ -68,11 +68,19 @@ export function App(): JSX.Element {
                 bottom: "3%",
                 containLabel: true,
               },
-              dataset: {
-                source: aggregatedByTime.map(([category, value]) => {
-                  return { category, value };
-                }),
-              },
+              dataset: [
+                {
+                  source: aggregatedByTime.map(([category, value]) => {
+                    return { category, value };
+                  }),
+                },
+                {
+                  transform: {
+                    type: "sort",
+                    config: { dimension: "category", order: "asc" },
+                  },
+                },
+              ],
               xAxis: [
                 {
                   type: "category",
@@ -96,6 +104,7 @@ export function App(): JSX.Element {
                     x: "category",
                     y: "value",
                   },
+                  datasetIndex: 1,
                 },
               ],
             }}
