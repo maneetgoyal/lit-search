@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography, Grid } from "@mui/material";
+import { AppBar, Toolbar, Typography, Grid, TextField } from "@mui/material";
 import { rollups } from "d3-array";
 import ReactECharts from "echarts-for-react";
 import { getDummyData } from "./utils";
@@ -52,7 +52,7 @@ export function App(): JSX.Element {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Grid container>
+      <Grid container sx={{ padding: "1%" }}>
         <Grid container item xs={12} sm={12} md={12} lg>
           <ReactECharts
             style={{ height: "60vh", width: "100%" }}
@@ -122,48 +122,54 @@ export function App(): JSX.Element {
             }}
           />
         </Grid>
-        <Grid container item xs={12} sm={12} md={12} lg>
-          <ReactECharts
-            style={{ height: "60vh", width: "100%" }}
-            option={{
-              color: [
-                "#d73027",
-                "#f46d43",
-                "#fdae61",
-                "#fee090",
-                "#ffffbf",
-                "#e0f3f8",
-                "#abd9e9",
-                "#74add1",
-                "#4575b4",
-              ],
-              title: {
-                text: "Top 10 Authors",
-                subtext: "By Topic of Interest",
-                left: "center",
-              },
-              tooltip: {
-                trigger: "item",
-              },
-              series: [
-                {
-                  name: "Publications Distribution",
-                  type: "pie",
-                  radius: "50%",
-                  data: aggregatedByAuthor.map(([name, value]) => {
-                    return { name, value };
-                  }),
-                  emphasis: {
-                    itemStyle: {
-                      shadowBlur: 10,
-                      shadowOffsetX: 0,
-                      shadowColor: "rgba(0, 0, 0, 0.5)",
+        <Grid container item xs={12} sm={12} md={12} lg direction="column" spacing={2}>
+          <Grid container item>
+            <TextField fullWidth label="Filter by keywords" type="search" />
+          </Grid>
+          <Grid container item>
+            <ReactECharts
+              style={{ height: "60vh", width: "100%" }}
+              option={{
+                color: [
+                  "#a50026",
+                  "#d73027",
+                  "#f46d43",
+                  "#fdae61",
+                  "#fee090",
+                  "#e0f3f8",
+                  "#abd9e9",
+                  "#74add1",
+                  "#4575b4",
+                  "#313695",
+                ],
+                title: {
+                  text: "Top 10 Authors",
+                  subtext: "By Topic of Interest",
+                  left: "center",
+                },
+                tooltip: {
+                  trigger: "item",
+                },
+                series: [
+                  {
+                    name: "Publications Distribution",
+                    type: "pie",
+                    radius: "50%",
+                    data: aggregatedByAuthor.map(([name, value]) => {
+                      return { name, value };
+                    }),
+                    emphasis: {
+                      itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: "rgba(0, 0, 0, 0.5)",
+                      },
                     },
                   },
-                },
-              ],
-            }}
-          />
+                ],
+              }}
+            />
+          </Grid>
         </Grid>
       </Grid>
     </>
