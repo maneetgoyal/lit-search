@@ -31,6 +31,15 @@ export function App(): JSX.Element {
       }
     }
   };
+  const onBackClick = () => {
+    if (year !== undefined) {
+      if (month !== undefined) {
+        setMonth(undefined);
+      } else {
+        setYear(undefined);
+      }
+    }
+  };
   return (
     <>
       <AppBar position="static">
@@ -44,7 +53,13 @@ export function App(): JSX.Element {
         <Grid container sx={{ padding: "1%" }} spacing={2}>
           <Grid container item xs={12} sm={12} md={12} lg direction="column" spacing={2}>
             <Grid container item>
-              <Button fullWidth variant="outlined" size="large" disabled={year === undefined}>
+              <Button
+                fullWidth
+                variant="outlined"
+                size="large"
+                disabled={year === undefined}
+                onClick={onBackClick}
+              >
                 Go Back
               </Button>
             </Grid>
