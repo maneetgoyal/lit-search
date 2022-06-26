@@ -9,7 +9,9 @@ import type { TextFieldProps } from "@mui/material";
 
 function getBarChartData(
   data: Publication[],
-  granularity?: "year" | "month" | "week"
+  granularity?: "year" | "month" | "week",
+  year?: string,
+  month?: string
 ): [string, number][] {
   const aggregatedByTime = rollups(
     data,
