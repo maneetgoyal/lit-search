@@ -164,7 +164,7 @@ export function App(): JSX.Element {
                   ],
                   title: {
                     text: "Top 10 Authors",
-                    subtext: "By Topic of Interest",
+                    subtext: "Filtered by Topic of Interest",
                     left: "center",
                   },
                   tooltip: {
