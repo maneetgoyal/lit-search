@@ -66,7 +66,7 @@ export function App(): JSX.Element {
               grid: {
                 left: "3%",
                 right: "4%",
-                bottom: "3%",
+                bottom: "4%",
                 containLabel: true,
               },
               dataset: [
@@ -88,11 +88,17 @@ export function App(): JSX.Element {
                   axisTick: {
                     alignWithLabel: true,
                   },
+                  name: "Time",
+                  nameLocation: "middle",
+                  nameGap: 30,
                 },
               ],
               yAxis: [
                 {
                   type: "value",
+                  name: "Publications Count",
+                  nameLocation: "middle",
+                  nameGap: 30,
                 },
               ],
               series: [
