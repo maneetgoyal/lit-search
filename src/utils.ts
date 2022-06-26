@@ -93,3 +93,14 @@ export function getPieChartData(data: Publication[], filter?: string): [string, 
   // getting top 10 authors only
   return aggregatedByAuthor.slice(0, 10);
 }
+
+export function getXAxisLabel(year?: string, month?: string) {
+  let output = "Years";
+  if (year !== undefined) {
+    output = "Month Index";
+    if (month !== undefined) {
+      output = "Week Index";
+    }
+  }
+  return output;
+}

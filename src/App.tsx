@@ -1,7 +1,7 @@
-import { AppBar, Toolbar, Typography, Grid, TextField } from "@mui/material";
+import { AppBar, Toolbar, Typography, Grid, TextField, Button } from "@mui/material";
 import ReactECharts from "echarts-for-react";
 import { useState, useEffect } from "react";
-import { getDummyData, getBarChartData, getPieChartData } from "./utils";
+import { getDummyData, getBarChartData, getPieChartData, getXAxisLabel } from "./utils";
 import type { Publication, Datum } from "./utils";
 import type { TextFieldProps } from "@mui/material";
 import type { DefaultLabelFormatterCallbackParams } from "echarts";
@@ -41,78 +41,85 @@ export function App(): JSX.Element {
         </Toolbar>
       </AppBar>
       {data.length > 0 ? (
-        <Grid container sx={{ padding: "1%" }}>
-          <Grid container item xs={12} sm={12} md={12} lg>
-            <ReactECharts
-              style={{ height: "60vh", width: "100%" }}
-              option={{
-                title: {
-                  text: "Publications Timeline",
-                  subtext: "By Year",
-                  left: "center",
-                },
-                tooltip: {
-                  trigger: "axis",
-                  axisPointer: {
-                    type: "shadow",
+        <Grid container sx={{ padding: "1%" }} spacing={2}>
+          <Grid container item xs={12} sm={12} md={12} lg direction="column" spacing={2}>
+            <Grid container item>
+              <Button fullWidth variant="outlined" size="large" disabled={year === undefined}>
+                Go Back
+              </Button>
+            </Grid>
+            <Grid container item>
+              <ReactECharts
+                style={{ height: "60vh", width: "100%" }}
+                option={{
+                  title: {
+                    text: "Publications Timeline",
+                    subtext: "By Year",
+                    left: "center",
                   },
-                },
-                grid: {
-                  left: "3%",
-                  right: "4%",
-                  bottom: "4%",
-                  containLabel: true,
-                },
-                dataset: [
-                  {
-                    source: aggregatedByTime.map(([category, value]) => {
-                      return { category, value };
-                    }),
-                  },
-                  {
-                    transform: {
-                      type: "sort",
-                      config: { dimension: "category", order: "asc" },
+                  tooltip: {
+                    trigger: "axis",
+                    axisPointer: {
+                      type: "shadow",
                     },
                   },
-                ],
-                xAxis: [
-                  {
-                    type: "category",
-                    axisTick: {
-                      alignWithLabel: true,
+                  grid: {
+                    left: "3%",
+                    right: "4%",
+                    bottom: "4%",
+                    containLabel: true,
+                  },
+                  dataset: [
+                    {
+                      source: aggregatedByTime.map(([category, value]) => {
+                        return { category, value };
+                      }),
                     },
-                    name: "Time",
-                    nameLocation: "middle",
-                    nameGap: 30,
-                  },
-                ],
-                yAxis: [
-                  {
-                    type: "value",
-                    name: "Publications Count",
-                    nameLocation: "middle",
-                    nameGap: 30,
-                  },
-                ],
-                series: [
-                  {
-                    name: "Publications Count",
-                    type: "bar",
-                    showBackground: true,
-                    barWidth: "60%",
-                    encode: {
-                      x: "category",
-                      y: "value",
+                    {
+                      transform: {
+                        type: "sort",
+                        config: { dimension: "category", order: "asc" },
+                      },
                     },
-                    datasetIndex: 1,
-                  },
-                ],
-              }}
-              onEvents={{
-                click: onChartClick,
-              }}
-            />
+                  ],
+                  xAxis: [
+                    {
+                      type: "category",
+                      axisTick: {
+                        alignWithLabel: true,
+                      },
+                      name: getXAxisLabel(year, month),
+                      nameLocation: "middle",
+                      nameGap: 30,
+                    },
+                  ],
+                  yAxis: [
+                    {
+                      type: "value",
+                      name: "Publications Count",
+                      nameLocation: "middle",
+                      nameGap: 30,
+                    },
+                  ],
+                  series: [
+                    {
+                      name: "Publications Count",
+                      type: "bar",
+                      showBackground: true,
+                      barWidth: "60%",
+                      encode: {
+                        x: "category",
+                        y: "value",
+                      },
+                      datasetIndex: 1,
+                    },
+                  ],
+                }}
+                onEvents={{
+                  click: onChartClick,
+                }}
+              />
+            </Grid>
           </Grid>
           <Grid container item xs={12} sm={12} md={12} lg direction="column" spacing={2}>
             <Grid container item>
