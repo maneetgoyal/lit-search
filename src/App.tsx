@@ -131,16 +131,16 @@ export function App(): JSX.Element {
               style={{ height: "60vh", width: "100%" }}
               option={{
                 color: [
-                  "#a50026",
-                  "#d73027",
-                  "#f46d43",
-                  "#fdae61",
-                  "#fee090",
-                  "#e0f3f8",
-                  "#abd9e9",
-                  "#74add1",
-                  "#4575b4",
-                  "#313695",
+                  "#8dd3c7",
+                  "#ffffb3",
+                  "#bebada",
+                  "#fb8072",
+                  "#80b1d3",
+                  "#fdb462",
+                  "#b3de69",
+                  "#fccde5",
+                  "#d9d9d9",
+                  "#bc80bd",
                 ],
                 title: {
                   text: "Top 10 Authors",
