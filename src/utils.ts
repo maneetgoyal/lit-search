@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker";
 // Make random data deterministic
 faker.mersenne.seed(0);
 
-interface Publication {
+export interface Publication {
   publicationDate: string;
   authors: string[];
   topic: string;
