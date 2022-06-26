@@ -1,49 +1,9 @@
 import { AppBar, Toolbar, Typography, Grid, TextField } from "@mui/material";
-import { rollups } from "d3-array";
 import ReactECharts from "echarts-for-react";
-import { matchSorter } from "match-sorter";
 import { useState, useEffect } from "react";
-import { getDummyData } from "./utils";
+import { getDummyData, getBarChartData, getPieChartData } from "./utils";
 import type { Publication } from "./utils";
 import type { TextFieldProps } from "@mui/material";
-
-function getBarChartData(
-  data: Publication[],
-  granularity?: "year" | "month" | "week",
-  year?: string,
-  month?: string
-): [string, number][] {
-  const aggregatedByTime = rollups(
-    data,
-    (vals) => {
-      return vals.length;
-    },
-    (val) => {
-      return new Date(val.publicationDate).getFullYear().toString();
-    }
-  );
-  return aggregatedByTime;
-}
-
-function getPieChartData(data: Publication[], filter?: string): [string, number][] {
-  const filteredData = matchSorter(data, filter ?? "", { keys: ["topic"] });
-  const authors = filteredData.flatMap((ele) => {
-    return ele.authors;
-  });
-  const aggregatedByAuthor = rollups(
-    authors,
-    (vals) => {
-      return vals.length;
-    },
-    (val) => val
-  );
-  // Sort author by publication count
-  aggregatedByAuthor.sort(([, a], [, b]) => {
-    return a - b > 0 ? -1 : 1;
-  });
-  // getting top 10 authors only
-  return aggregatedByAuthor.slice(0, 10);
-}
 
 export function App(): JSX.Element {
   const [filter, setFilter] = useState("");

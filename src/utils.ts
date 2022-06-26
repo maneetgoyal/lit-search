@@ -1,4 +1,6 @@
 import { faker } from "@faker-js/faker";
+import { rollups } from "d3-array";
+import { matchSorter } from "match-sorter";
 
 // Make random data deterministic
 faker.mersenne.seed(0);
@@ -33,4 +35,42 @@ export function getDummyData(): Publication[] {
     });
   }
   return publications;
+}
+
+export function getBarChartData(
+  data: Publication[],
+  granularity?: "year" | "month" | "week",
+  year?: string,
+  month?: string
+): [string, number][] {
+  const aggregatedByTime = rollups(
+    data,
+    (vals) => {
+      return vals.length;
+    },
+    (val) => {
+      return new Date(val.publicationDate).getFullYear().toString();
+    }
+  );
+  return aggregatedByTime;
+}
+
+export function getPieChartData(data: Publication[], filter?: string): [string, number][] {
+  const filteredData = matchSorter(data, filter ?? "", { keys: ["topic"] });
+  const authors = filteredData.flatMap((ele) => {
+    return ele.authors;
+  });
+  const aggregatedByAuthor = rollups(
+    authors,
+    (vals) => {
+      return vals.length;
+    },
+    (val) => val
+  );
+  // Sort author by publication count
+  aggregatedByAuthor.sort(([, a], [, b]) => {
+    return a - b > 0 ? -1 : 1;
+  });
+  // getting top 10 authors only
+  return aggregatedByAuthor.slice(0, 10);
 }
