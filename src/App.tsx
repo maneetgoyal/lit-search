@@ -1,7 +1,13 @@
 import { AppBar, Toolbar, Typography, Grid, TextField, Button } from "@mui/material";
 import ReactECharts from "echarts-for-react";
 import { useState, useEffect } from "react";
-import { getDummyData, getBarChartData, getPieChartData, getXAxisLabel } from "./utils";
+import {
+  getDummyData,
+  getBarChartData,
+  getPieChartData,
+  getXAxisLabel,
+  getSubtitle,
+} from "./utils";
 import type { Publication, Datum } from "./utils";
 import type { TextFieldProps } from "@mui/material";
 import type { DefaultLabelFormatterCallbackParams } from "echarts";
@@ -69,7 +75,7 @@ export function App(): JSX.Element {
                 option={{
                   title: {
                     text: "Publications Timeline",
-                    subtext: "By Year",
+                    subtext: getSubtitle(year, month),
                     left: "center",
                   },
                   tooltip: {
@@ -148,6 +154,7 @@ export function App(): JSX.Element {
             </Grid>
             <Grid container item>
               <ReactECharts
+                lazyUpdate
                 style={{ height: "60vh", width: "100%" }}
                 option={{
                   color: [

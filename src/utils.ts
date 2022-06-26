@@ -104,3 +104,16 @@ export function getXAxisLabel(year?: string, month?: string) {
   }
   return output;
 }
+
+export function getSubtitle(year?: string, month?: string) {
+  let output = "Yearly Overview";
+  if (year !== undefined) {
+    output = `Monthly Overview (${year})`;
+    if (month !== undefined) {
+      output = `Weekly Overview (${new Date(2011, Number.parseInt(month, 10)).toLocaleString(undefined, {
+        month: "short",
+      })} ${year})`;
+    }
+  }
+  return output;
+}
