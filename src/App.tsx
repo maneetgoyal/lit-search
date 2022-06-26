@@ -48,8 +48,9 @@ export function App(): JSX.Element {
         </Toolbar>
       </AppBar>
       <Grid container>
-        <Grid item md={12} lg={6}>
+        <Grid container item xs={12} sm={12} md={12} lg>
           <ReactECharts
+            style={{ height: "60vh", width: "100%" }}
             option={{
               title: {
                 text: "Publications Timeline",
@@ -110,8 +111,9 @@ export function App(): JSX.Element {
             }}
           />
         </Grid>
-        <Grid item md={12} lg={6}>
+        <Grid container item xs={12} sm={12} md={12} lg>
           <ReactECharts
+            style={{ height: "60vh", width: "100%" }}
             option={{
               title: {
                 text: "Prominent Authors",
