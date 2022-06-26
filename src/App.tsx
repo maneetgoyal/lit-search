@@ -31,7 +31,12 @@ function getPieChartData(data: Publication[], filter?: string): [string, number]
     },
     (val) => val
   );
-  return aggregatedByAuthor;
+  // Sort author by publication count
+  aggregatedByAuthor.sort(([, a], [, b]) => {
+    return a - b > 0 ? -1 : 1;
+  });
+  // getting top 10 authors only
+  return aggregatedByAuthor.slice(0, 10);
 }
 
 export function App(): JSX.Element {
@@ -121,8 +126,19 @@ export function App(): JSX.Element {
           <ReactECharts
             style={{ height: "60vh", width: "100%" }}
             option={{
+              color: [
+                "#d73027",
+                "#f46d43",
+                "#fdae61",
+                "#fee090",
+                "#ffffbf",
+                "#e0f3f8",
+                "#abd9e9",
+                "#74add1",
+                "#4575b4",
+              ],
               title: {
-                text: "Prominent Authors",
+                text: "Top 10 Authors",
                 subtext: "By Topic of Interest",
                 left: "center",
               },

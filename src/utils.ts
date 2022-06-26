@@ -16,7 +16,7 @@ export function getDummyData(): Publication[] {
     publications.push({
       publicationDate: faker.date.between("2020-01-01T00:00:00.000Z", "2030-01-01T00:00:00.000Z").toISOString(),
       authors: faker.helpers.arrayElements(
-        ["Max", "Tom", "Lisa", "Daniel", "Kumar", "Sharma", "John", "Alice", "Ray"],
+        ["Max", "Tom", "Lisa", "Daniel", "Kumar", "Sharma", "John", "Alice", "Ray", "Alex", "Dom", "Siva"],
         faker.datatype.number({ min: 1, max: 4 })
       ),
       topic: faker.helpers.arrayElement([
