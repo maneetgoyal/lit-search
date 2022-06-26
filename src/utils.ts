@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { rollups } from "d3-array";
 import { matchSorter } from "match-sorter";
+import { getWeek } from "date-fns";
 
 // Make random data deterministic
 faker.mersenne.seed(0);
@@ -58,6 +59,9 @@ export function getBarChartData(data: Publication[], year?: string, month?: stri
       filteredData = filteredData.filter((ele) => {
         return new Date(ele.publicationDate).getMonth().toString() === month;
       });
+      grouper = (val: Publication) => {
+        return getWeek(new Date(val.publicationDate)).toString();
+      };
     }
   }
   const aggregatedByTime = rollups(

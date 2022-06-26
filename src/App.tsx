@@ -10,11 +10,12 @@ export function App(): JSX.Element {
   const [filter, setFilter] = useState("");
   const [data, setData] = useState<Publication[]>([]);
   const [year, setYear] = useState<string>();
+  const [month, setMonth] = useState<string>();
   useEffect(() => {
     const dummyData = getDummyData();
     setData(dummyData);
   }, []);
-  const aggregatedByTime = getBarChartData(data, year);
+  const aggregatedByTime = getBarChartData(data, year, month);
   const aggregatedByAuthor = getPieChartData(data, filter);
   const onFilterChange: TextFieldProps["onChange"] = (evt) => {
     const { value } = evt.target;
@@ -23,7 +24,11 @@ export function App(): JSX.Element {
   const onChartClick = (params: DefaultLabelFormatterCallbackParams) => {
     if (params.componentType === "series" && params.componentSubType === "bar") {
       const datum = params.data as Datum;
-      setYear(datum.category);
+      if (year === undefined) {
+        setYear(datum.category);
+      } else if (month === undefined) {
+        setMonth(datum.category);
+      }
     }
   };
   return (
