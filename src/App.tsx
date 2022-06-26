@@ -143,6 +143,7 @@ export function App(): JSX.Element {
                 label="Filter by keywords"
                 type="search"
                 onChange={onFilterChange}
+                helperText="E.g. cell, disease, oncology, etc."
               />
             </Grid>
             <Grid container item>
