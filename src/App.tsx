@@ -123,11 +123,6 @@ export function App(): JSX.Element {
               tooltip: {
                 trigger: "item",
               },
-              legend: {
-                orient: "horizontal",
-                right: "center",
-                bottom: "bottom",
-              },
               series: [
                 {
                   name: "Publications Distribution",
